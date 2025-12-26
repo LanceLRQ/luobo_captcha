@@ -199,10 +199,11 @@ export default function ClickCaptcha({
           setTimeout(() => onSuccess?.(), 500);
         }, 300);
       } else {
-        // 错误：恢复默认图片，重新播放提示音效（不打断当前播放），允许重试
+        // 错误：恢复默认图片，重新播放提示音效（不打断当前播放，0.5-1秒随机延迟），允许重试
         setCurrentImage(`${basePath}/${images.default}`);
         setActiveArea(null);
-        playRandomVocal(correctArea.name, false);
+        const randomDelay = 500 + Math.random() * 500; // 0.5-1秒随机
+        playRandomVocal(correctArea.name, false, randomDelay);
       }
     } else {
       setActiveArea(null);

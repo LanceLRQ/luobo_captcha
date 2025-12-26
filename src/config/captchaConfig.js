@@ -1,10 +1,12 @@
 // 音效配置 - key 对应 area 的 name
 export const vocalConfigs = {
   // 答案提示音效
-  luobo: ['/vocals/luobo-1.wav', '/vocals/luobo-2.wav', '/vocals/luobo-3.wav'],
-  zhijin: ['/vocals/zhijin-1.wav'],
+  baobao: ['/vocals/baobao-1.wav', '/vocals/baobao-2.wav', '/vocals/baobao-3.wav'],
+  luobo: ['/vocals/luobo-1.wav', '/vocals/luobo-2.wav', '/vocals/luobo-3.wav', '/vocals/luobo-4.wav', '/vocals/luobo-5.wav'],
+  zhijin: ['/vocals/zhijin-1.wav', '/vocals/zhijin-2.wav', '/vocals/zhijin-3.wav', '/vocals/zhijin-4.wav', '/vocals/zhijin-5.wav'],
+  milaoshu: ['/vocals/milaoshu-1.wav', '/vocals/milaoshu-2.wav', '/vocals/milaoshu-3.wav', '/vocals/milaoshu-4.wav', '/vocals/milaoshu-5.wav'],
   // 正确音效
-  zhenbang: ['/vocals/zhenbang-1.wav', '/vocals/zhenbang-2.wav', '/vocals/zhenbang-3.wav', '/vocals/zhenbang-4.wav'],
+  zhenbang: ['/vocals/zhenbang-1.wav', '/vocals/zhenbang-2.wav', '/vocals/zhenbang-3.wav', '/vocals/zhenbang-4.wav', '/vocals/zhenbang-5.wav', '/vocals/zhenbang-6.wav'],
 };
 
 // 点击验证码配置列表 - 每次随机取一个
@@ -17,8 +19,38 @@ export const clickCaptchaConfigs = [
       states: ['1.jpg', '2.jpg']
     },
     areas: [
-      { name: 'luobo', label: '萝卜', x: 10, y: 280, width: 120, height: 120, stateIndex: 1 },
       { name: 'zhijin', label: '纸巾', x: 150, y: 250, width: 120, height: 140, stateIndex: 0 },
+      { name: 'luobo', label: '萝卜', x: 10, y: 280, width: 120, height: 120, stateIndex: 1 },
+    ],
+    promptTemplate: '{target}',
+    imageSize: 400,
+    debug: false
+  }, 
+  {
+    id: 'kaimen_group_2',
+    basePath: '/captcha-images/kaimen/group_2',
+    images: {
+      default: '0.jpg',
+      states: ['1.jpg', '2.jpg']
+    },
+    areas: [
+      { name: 'zhijin', label: '纸巾', x: 280, y: 250, width: 120, height: 140, stateIndex: 0 },
+      { name: 'luobo', label: '萝卜', x: 140, y: 280, width: 80, height: 120, stateIndex: 1 },
+    ],
+    promptTemplate: '{target}',
+    imageSize: 400,
+    debug: false
+  },
+  {
+    id: 'kaimen_group_3',
+    basePath: '/captcha-images/kaimen/group_3',
+    images: {
+      default: '0.jpg',
+      states: ['1.jpg', '2.jpg']
+    },
+    areas: [
+      { name: 'zhijin', label: '纸巾', x: 10, y: 260, width: 140, height: 130, stateIndex: 0 },
+      { name: 'baobao', label: '包包', x: 180, y: 260, width: 220, height: 120, stateIndex: 1 },
     ],
     promptTemplate: '{target}',
     imageSize: 400,
