@@ -57,13 +57,16 @@ export default function Home() {
     <div className="min-h-screen bg-gray-100 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         {/* 标题 */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            图形验证码 Demo
+            萝卜纸巾验证码
           </h1>
-          <p className="text-gray-600 text-lg">
-            模仿 Google reCAPTCHA 样式的本地验证码演示
-          </p>
+          <img
+          src="/captcha-images/kaimen.jpg"
+          alt="萝卜纸巾验证码"
+          className="h-25 mt-3 rounded m-auto"
+          draggable={false}
+        />
         </div>
 
         {/* 两种验证码演示区域 */}
@@ -71,11 +74,8 @@ export default function Home() {
           {/* 点击位置验证码 */}
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              模式一：点击位置验证
+              模式一
             </h2>
-            <p className="text-gray-600 text-sm mb-6">
-              用户需要点击并按住图片上的正确区域来完成验证。按住时图片会切换状态，松开后进行验证。
-            </p>
 
             {/* 状态显示 */}
             {clickResult && (
@@ -84,7 +84,7 @@ export default function Home() {
                   ? 'bg-green-100 text-green-700'
                   : 'bg-red-100 text-red-700'
               }`}>
-                {clickResult === 'success' ? '验证成功!' : '验证失败，请重试'}
+                {clickResult === 'success' ? '验证成功喵!' : '验证失败喵~'}
               </div>
             )}
 
@@ -104,12 +104,12 @@ export default function Home() {
                   </svg>
                 )}
               </div>
-              <span className="text-gray-700">我不是机器人</span>
+              <span className="text-gray-700">喵？</span>
               <div className="ml-auto flex flex-col items-center">
                 <svg className="w-8 h-8 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                 </svg>
-                <span className="text-xs text-gray-400">点击验证</span>
+                <span className="text-xs text-gray-400">喵喵喵</span>
               </div>
             </div>
           </div>
@@ -117,11 +117,8 @@ export default function Home() {
           {/* 九宫格验证码 */}
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              模式二：九宫格选择验证
+              模式二
             </h2>
-            <p className="text-gray-600 text-sm mb-6">
-              用户需要从九张图片中选择所有符合条件的图片（例如：选择所有包含猫的图片）。
-            </p>
 
             {/* 状态显示 */}
             {gridResult && (
@@ -130,7 +127,7 @@ export default function Home() {
                   ? 'bg-green-100 text-green-700'
                   : 'bg-red-100 text-red-700'
               }`}>
-                {gridResult === 'success' ? '验证成功!' : '验证失败，请重试'}
+                {gridResult === 'success' ? '验证成功喵!' : '验证失败喵~'}
               </div>
             )}
 
@@ -150,38 +147,15 @@ export default function Home() {
                   </svg>
                 )}
               </div>
-              <span className="text-gray-700">我不是机器人</span>
+              <span className="text-gray-700">喵喵？</span>
               <div className="ml-auto flex flex-col items-center">
                 <svg className="w-8 h-8 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/>
                 </svg>
-                <span className="text-xs text-gray-400">九宫格验证</span>
+                <span className="text-xs text-gray-400">喵喵喵</span>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* 说明信息 */}
-        <div className="mt-12 bg-white rounded-xl shadow-lg p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">功能说明</h3>
-          <ul className="space-y-2 text-gray-600">
-            <li className="flex items-start gap-2">
-              <span className="text-blue-500 mt-1">*</span>
-              <span>点击「我不是机器人」区域即可触发验证码弹窗</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-blue-500 mt-1">*</span>
-              <span>验证成功后会显示绿色对勾，验证失败会自动重置</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-blue-500 mt-1">*</span>
-              <span>所有验证逻辑都在本地执行，无需后端接口</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-blue-500 mt-1">*</span>
-              <span>UI 样式模仿 Google reCAPTCHA 设计</span>
-            </li>
-          </ul>
         </div>
       </div>
 

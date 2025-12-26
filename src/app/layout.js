@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "图形验证码 Demo",
-  description: "模仿 Google reCAPTCHA 样式的本地验证码演示",
+  title: "萝卜纸巾验证码",
+  description: "萝卜纸巾验证码",
 };
 
 export default function RootLayout({ children }) {
