@@ -1,0 +1,27 @@
+<svg width="320" height="100" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="100" fill="#3d7ee6"/>
+  <!-- 多只猫的剪影 -->
+  <g fill="white" opacity="0.3">
+    <!-- 猫1 -->
+    <ellipse cx="50" cy="60" rx="25" ry="20"/>
+    <polygon points="30,50 27,25 45,42"/>
+    <polygon points="70,50 73,25 55,42"/>
+    <!-- 猫2 -->
+    <ellipse cx="140" cy="55" rx="28" ry="22"/>
+    <polygon points="118,48 112,20 135,40"/>
+    <polygon points="162,48 168,20 145,40"/>
+    <!-- 猫3 -->
+    <ellipse cx="230" cy="58" rx="24" ry="18"/>
+    <polygon points="212,50 208,28 225,44"/>
+    <polygon points="248,50 252,28 235,44"/>
+    <!-- 猫4 -->
+    <ellipse cx="290" cy="62" rx="22" ry="17"/>
+    <polygon points="273,55 270,35 285,50"/>
+    <polygon points="307,55 310,35 295,50"/>
+  </g>
+  <!-- 装饰点 -->
+  <circle cx="20" cy="20" r="3" fill="white" opacity="0.4"/>
+  <circle cx="100" cy="85" r="4" fill="white" opacity="0.3"/>
+  <circle cx="200" cy="15" r="3" fill="white" opacity="0.4"/>
+  <circle cx="300" cy="80" r="3" fill="white" opacity="0.35"/>
+</svg>

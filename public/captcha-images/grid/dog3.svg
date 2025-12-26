@@ -1,0 +1,25 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="120" fill="#f3e5f5"/>
+  <!-- 狗脸 - 金毛 -->
+  <ellipse cx="60" cy="65" rx="38" ry="35" fill="#ffb74d"/>
+  <!-- 毛茸茸的边缘 -->
+  <circle cx="30" cy="55" r="10" fill="#ffb74d"/>
+  <circle cx="90" cy="55" r="10" fill="#ffb74d"/>
+  <circle cx="35" cy="85" r="8" fill="#ffb74d"/>
+  <circle cx="85" cy="85" r="8" fill="#ffb74d"/>
+  <!-- 耳朵 -->
+  <ellipse cx="25" cy="45" rx="15" ry="20" fill="#ffa726"/>
+  <ellipse cx="95" cy="45" rx="15" ry="20" fill="#ffa726"/>
+  <!-- 眼睛 -->
+  <circle cx="45" cy="55" r="8" fill="white"/>
+  <circle cx="75" cy="55" r="8" fill="white"/>
+  <circle cx="45" cy="57" r="5" fill="#5d4037"/>
+  <circle cx="75" cy="57" r="5" fill="#5d4037"/>
+  <circle cx="43" cy="55" r="2" fill="white"/>
+  <circle cx="73" cy="55" r="2" fill="white"/>
+  <!-- 鼻子 -->
+  <ellipse cx="60" cy="72" rx="8" ry="6" fill="#333"/>
+  <!-- 嘴巴和舌头 -->
+  <path d="M48,82 Q60,92 72,82" stroke="#333" stroke-width="2" fill="none"/>
+  <ellipse cx="60" cy="88" rx="8" ry="10" fill="#ff8a80"/>
+</svg>

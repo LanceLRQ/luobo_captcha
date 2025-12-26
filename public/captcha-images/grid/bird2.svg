@@ -1,0 +1,24 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="120" fill="#fff8e1"/>
+  <!-- 身体 - 鹦鹉 -->
+  <ellipse cx="60" cy="70" rx="28" ry="30" fill="#4caf50"/>
+  <!-- 翅膀 -->
+  <ellipse cx="35" cy="60" rx="12" ry="25" fill="#388e3c"/>
+  <ellipse cx="85" cy="60" rx="12" ry="25" fill="#388e3c"/>
+  <!-- 头 -->
+  <circle cx="60" cy="35" r="20" fill="#4caf50"/>
+  <!-- 眼睛区域 -->
+  <circle cx="48" cy="32" r="10" fill="white"/>
+  <circle cx="72" cy="32" r="10" fill="white"/>
+  <circle cx="48" cy="33" r="5" fill="#333"/>
+  <circle cx="72" cy="33" r="5" fill="#333"/>
+  <!-- 嘴巴 - 弯钩状 -->
+  <path d="M55,45 Q60,55 65,45 Q68,50 60,58 Q52,50 55,45" fill="#ff5722"/>
+  <!-- 胸部红色 -->
+  <ellipse cx="60" cy="75" rx="15" ry="12" fill="#f44336"/>
+  <!-- 尾巴 -->
+  <polygon points="60,100 50,120 55,105 60,120 65,105 70,120" fill="#388e3c"/>
+  <!-- 脚 -->
+  <rect x="48" y="98" width="5" height="12" fill="#795548"/>
+  <rect x="67" y="98" width="5" height="12" fill="#795548"/>
+</svg>

@@ -1,0 +1,36 @@
+{
+  "groups": [
+    {
+      "id": "group_1",
+      "name": "开门验证",
+      "prompt": "请点击正确的区域开门",
+      "basePath": "/captcha-images/kaimen/group_1",
+      "images": {
+        "default": "0.jpg",
+        "states": ["1.jpg", "2.jpg"]
+      },
+      "areas": [
+        {
+          "name": "left_door",
+          "label": "左门",
+          "x": 50,
+          "y": 150,
+          "width": 120,
+          "height": 200,
+          "stateIndex": 0,
+          "isCorrect": true
+        },
+        {
+          "name": "right_door",
+          "label": "右门",
+          "x": 230,
+          "y": 150,
+          "width": 120,
+          "height": 200,
+          "stateIndex": 1,
+          "isCorrect": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="120" fill="#fce4ec"/>
+  <!-- 狗脸 - 哈士奇 -->
+  <ellipse cx="60" cy="65" rx="35" ry="32" fill="#90a4ae"/>
+  <!-- 耳朵 - 竖耳 -->
+  <polygon points="30,50 20,15 45,40" fill="#607d8b"/>
+  <polygon points="90,50 100,15 75,40" fill="#607d8b"/>
+  <!-- 脸部白色区域 -->
+  <path d="M40,45 L60,30 L80,45 L75,90 L45,90 Z" fill="white"/>
+  <!-- 眼睛 -->
+  <ellipse cx="45" cy="55" rx="7" ry="8" fill="#64b5f6"/>
+  <ellipse cx="75" cy="55" rx="7" ry="8" fill="#64b5f6"/>
+  <circle cx="45" cy="57" r="3" fill="#333"/>
+  <circle cx="75" cy="57" r="3" fill="#333"/>
+  <!-- 鼻子 -->
+  <ellipse cx="60" cy="72" rx="7" ry="5" fill="#333"/>
+  <!-- 嘴巴 -->
+  <path d="M52,80 Q60,86 68,80" stroke="#333" stroke-width="2" fill="none"/>
+</svg>

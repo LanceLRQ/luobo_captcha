@@ -1,65 +1,212 @@
-import Image from "next/image";
+'use client';
+
+import { useState, useCallback } from 'react';
+import ClickCaptcha from '@/components/captcha/ClickCaptcha';
+import GridCaptcha from '@/components/captcha/GridCaptcha';
+import { clickCaptchaConfigs, gridCaptchaConfig } from '@/config/captchaConfig';
 
 export default function Home() {
+  const [showClickCaptcha, setShowClickCaptcha] = useState(false);
+  const [showGridCaptcha, setShowGridCaptcha] = useState(false);
+  const [clickResult, setClickResult] = useState(null);
+  const [gridResult, setGridResult] = useState(null);
+  const [currentClickConfig, setCurrentClickConfig] = useState(null);
+
+  const handleClickSuccess = useCallback(() => {
+    setClickResult('success');
+    setTimeout(() => setShowClickCaptcha(false), 800);
+  }, []);
+
+  const handleClickFailure = useCallback(() => {
+    setClickResult('failure');
+    setTimeout(() => {
+      setClickResult(null);
+      setShowClickCaptcha(false);
+    }, 1500);
+  }, []);
+
+  const handleGridSuccess = useCallback(() => {
+    setGridResult('success');
+    setTimeout(() => setShowGridCaptcha(false), 800);
+  }, []);
+
+  const handleGridFailure = useCallback(() => {
+    setGridResult('failure');
+    setTimeout(() => {
+      setGridResult(null);
+      setShowGridCaptcha(false);
+    }, 1500);
+  }, []);
+
+  const resetClickCaptcha = useCallback(() => {
+    // 随机选择一个配置
+    const randomIndex = Math.floor(Math.random() * clickCaptchaConfigs.length);
+    setCurrentClickConfig(clickCaptchaConfigs[randomIndex]);
+    setClickResult(null);
+    setShowClickCaptcha(true);
+  }, []);
+
+  const resetGridCaptcha = useCallback(() => {
+    setGridResult(null);
+    setShowGridCaptcha(true);
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
+    <div className="min-h-screen bg-gray-100 py-12 px-4">
+      <div className="max-w-4xl mx-auto">
+        {/* 标题 */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">
+            图形验证码 Demo
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-gray-600 text-lg">
+            模仿 Google reCAPTCHA 样式的本地验证码演示
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* 两种验证码演示区域 */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* 点击位置验证码 */}
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+              模式一：点击位置验证
+            </h2>
+            <p className="text-gray-600 text-sm mb-6">
+              用户需要点击并按住图片上的正确区域来完成验证。按住时图片会切换状态，松开后进行验证。
+            </p>
+
+            {/* 状态显示 */}
+            {clickResult && (
+              <div className={`mb-4 p-3 rounded-lg text-center ${
+                clickResult === 'success'
+                  ? 'bg-green-100 text-green-700'
+                  : 'bg-red-100 text-red-700'
+              }`}>
+                {clickResult === 'success' ? '验证成功!' : '验证失败，请重试'}
+              </div>
+            )}
+
+            {/* reCAPTCHA 风格的触发器 */}
+            <div
+              className="border-2 border-gray-200 rounded-lg p-4 flex items-center gap-4 cursor-pointer hover:bg-gray-50 transition-colors"
+              onClick={resetClickCaptcha}
+            >
+              <div className={`w-8 h-8 border-2 rounded flex items-center justify-center transition-colors ${
+                clickResult === 'success'
+                  ? 'border-green-500 bg-green-500'
+                  : 'border-gray-300 hover:border-gray-400'
+              }`}>
+                {clickResult === 'success' && (
+                  <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                  </svg>
+                )}
+              </div>
+              <span className="text-gray-700">我不是机器人</span>
+              <div className="ml-auto flex flex-col items-center">
+                <svg className="w-8 h-8 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <span className="text-xs text-gray-400">点击验证</span>
+              </div>
+            </div>
+          </div>
+
+          {/* 九宫格验证码 */}
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+              模式二：九宫格选择验证
+            </h2>
+            <p className="text-gray-600 text-sm mb-6">
+              用户需要从九张图片中选择所有符合条件的图片（例如：选择所有包含猫的图片）。
+            </p>
+
+            {/* 状态显示 */}
+            {gridResult && (
+              <div className={`mb-4 p-3 rounded-lg text-center ${
+                gridResult === 'success'
+                  ? 'bg-green-100 text-green-700'
+                  : 'bg-red-100 text-red-700'
+              }`}>
+                {gridResult === 'success' ? '验证成功!' : '验证失败，请重试'}
+              </div>
+            )}
+
+            {/* reCAPTCHA 风格的触发器 */}
+            <div
+              className="border-2 border-gray-200 rounded-lg p-4 flex items-center gap-4 cursor-pointer hover:bg-gray-50 transition-colors"
+              onClick={resetGridCaptcha}
+            >
+              <div className={`w-8 h-8 border-2 rounded flex items-center justify-center transition-colors ${
+                gridResult === 'success'
+                  ? 'border-green-500 bg-green-500'
+                  : 'border-gray-300 hover:border-gray-400'
+              }`}>
+                {gridResult === 'success' && (
+                  <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                  </svg>
+                )}
+              </div>
+              <span className="text-gray-700">我不是机器人</span>
+              <div className="ml-auto flex flex-col items-center">
+                <svg className="w-8 h-8 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/>
+                </svg>
+                <span className="text-xs text-gray-400">九宫格验证</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
+
+        {/* 说明信息 */}
+        <div className="mt-12 bg-white rounded-xl shadow-lg p-6">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">功能说明</h3>
+          <ul className="space-y-2 text-gray-600">
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 mt-1">*</span>
+              <span>点击「我不是机器人」区域即可触发验证码弹窗</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 mt-1">*</span>
+              <span>验证成功后会显示绿色对勾，验证失败会自动重置</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 mt-1">*</span>
+              <span>所有验证逻辑都在本地执行，无需后端接口</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 mt-1">*</span>
+              <span>UI 样式模仿 Google reCAPTCHA 设计</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* 点击验证码弹窗 */}
+      {showClickCaptcha && currentClickConfig && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <ClickCaptcha
+            key={currentClickConfig.id}
+            config={currentClickConfig}
+            onSuccess={handleClickSuccess}
+            onFailure={handleClickFailure}
+            onClose={() => setShowClickCaptcha(false)}
+          />
+        </div>
+      )}
+
+      {/* 九宫格验证码弹窗 */}
+      {showGridCaptcha && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <GridCaptcha
+            config={gridCaptchaConfig}
+            onSuccess={handleGridSuccess}
+            onFailure={handleGridFailure}
+            onClose={() => setShowGridCaptcha(false)}
+          />
+        </div>
+      )}
     </div>
   );
 }
