@@ -105,11 +105,11 @@ export default function ClickCaptcha({
     debug = false
   } = config;
 
-  // 随机选择一个正确答案（组件挂载时确定）
-  const correctArea = useMemo(() => {
+  // 随机选择一个正确答案
+  const [correctArea, setCorrectArea] = useState(() => {
     const randomIndex = Math.floor(Math.random() * areas.length);
     return areas[randomIndex];
-  }, [areas]);
+  });
 
   // 根据模板生成提示文案
   const prompt = useMemo(() => {
@@ -226,12 +226,18 @@ export default function ClickCaptcha({
 
   // 刷新
   const handleRefresh = useCallback(() => {
+    // 重新随机选择答案
+    const randomIndex = Math.floor(Math.random() * areas.length);
+    const newCorrectArea = areas[randomIndex];
+    setCorrectArea(newCorrectArea);
     setCurrentImage(`${basePath}/${images.default}`);
     setActiveArea(null);
     setStatus('pending');
     setIsVerifying(false);
     isHoldingRef.current = false;
-  }, [basePath, images.default]);
+    // 播放新答案的提示音
+    playRandomVocal(newCorrectArea.name, true, 0);
+  }, [basePath, images.default, areas]);
 
   // 添加全局事件监听（处理鼠标在按住状态下移出组件的情况）
   useEffect(() => {
@@ -360,25 +366,15 @@ export default function ClickCaptcha({
 
       {/* 底部操作栏 */}
       <div className="px-4 py-3 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={handleRefresh}
-            className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-full transition-colors"
-            title="刷新"
-          >
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
-            </svg>
-          </button>
-          <button
-            className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-full transition-colors"
-            title="帮助"
-          >
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
-            </svg>
-          </button>
-        </div>
+        <button
+          onClick={handleRefresh}
+          className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-full transition-colors"
+          title="刷新"
+        >
+          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+          </svg>
+        </button>
         <div className="text-xs text-gray-400">
           点击验证
         </div>

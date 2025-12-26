@@ -82,17 +82,39 @@ export const clickCaptchaConfigs = [
 
 // 九宫格验证码配置
 export const gridCaptchaConfig = {
-  images: [
-    { id: 1, url: '/captcha-images/grid/cat1.svg', isTarget: true },
-    { id: 2, url: '/captcha-images/grid/dog1.svg', isTarget: false },
-    { id: 3, url: '/captcha-images/grid/cat2.svg', isTarget: true },
-    { id: 4, url: '/captcha-images/grid/bird1.svg', isTarget: false },
-    { id: 5, url: '/captcha-images/grid/dog2.svg', isTarget: false },
-    { id: 6, url: '/captcha-images/grid/cat3.svg', isTarget: true },
-    { id: 7, url: '/captcha-images/grid/bird2.svg', isTarget: false },
-    { id: 8, url: '/captcha-images/grid/fish1.svg', isTarget: false },
-    { id: 9, url: '/captcha-images/grid/dog3.svg', isTarget: false },
+  // 4种物品，每种可能有多种展示形式
+  items: [
+    {
+      name: 'luobo',
+      label: '萝卜',
+      variants: [
+        { type: 'button', images: { up: '/captcha-images/btns/luobo-up.jpg', down: '/captcha-images/btns/luobo-down.jpg' } },
+        { type: 'image', image: '/captcha-images/btns/luobo-pic.jpg' }
+      ]
+    },
+    {
+      name: 'zhijin',
+      label: '纸巾',
+      variants: [
+        { type: 'button', images: { up: '/captcha-images/btns/zhijin-up.jpg', down: '/captcha-images/btns/zhijin-down.jpg' } },
+        { type: 'image', image: '/captcha-images/btns/zhijin-pic.jpg' }
+      ]
+    },
+    {
+      name: 'milaoshu',
+      label: '米老鼠',
+      variants: [
+        { type: 'button', images: { up: '/captcha-images/btns/milaoshu-up.jpg', down: '/captcha-images/btns/milaoshu-down.jpg' } },
+        { type: 'image', image: '/captcha-images/btns/milaoshu-pic.jpg' }
+      ]
+    },
+    {
+      name: 'baobao',
+      label: '包包',
+      variants: [
+        { type: 'image', image: '/captcha-images/btns/baobao-pic.jpg' }
+      ]
+    },
   ],
-  prompt: '请选择所有包含猫的图片',
-  headerImage: '/captcha-images/grid-header.svg'
+  promptTemplate: '{target}',
 };

@@ -11,6 +11,7 @@ export default function Home() {
   const [clickResult, setClickResult] = useState(null);
   const [gridResult, setGridResult] = useState(null);
   const [currentClickConfig, setCurrentClickConfig] = useState(null);
+  const [gridCaptchaKey, setGridCaptchaKey] = useState(0);
 
   const handleClickSuccess = useCallback(() => {
     setClickResult('success');
@@ -48,6 +49,7 @@ export default function Home() {
 
   const resetGridCaptcha = useCallback(() => {
     setGridResult(null);
+    setGridCaptchaKey(prev => prev + 1);
     setShowGridCaptcha(true);
   }, []);
 
@@ -200,6 +202,7 @@ export default function Home() {
       {showGridCaptcha && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <GridCaptcha
+            key={gridCaptchaKey}
             config={gridCaptchaConfig}
             onSuccess={handleGridSuccess}
             onFailure={handleGridFailure}
