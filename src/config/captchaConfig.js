@@ -56,6 +56,22 @@ export const clickCaptchaConfigs = [
     imageSize: 400,
     debug: false
   },
+  {
+    id: 'kaimen_group_4',
+    basePath: '/captcha-images/kaimen/group_4',
+    images: {
+      default: '0.jpg',
+      states: ['1.jpg', '2.jpg', '3.jpg']
+    },
+    areas: [
+      { name: 'luobo', label: '萝卜', x: 150, y: 300, width: 80, height: 100, stateIndex: 0 },
+      { name: 'zhijin', label: '纸巾', x: 10, y: 270, width: 140, height: 130, stateIndex: 1 },
+      { name: 'milaoshu', label: '米老鼠', x: 240, y: 280, width: 150, height: 120, stateIndex: 2 },
+    ],
+    promptTemplate: '{target}',
+    imageSize: 400,
+    debug: false
+  },
   // 可以继续添加更多配置
   // {
   //   id: 'kaimen_group_2',
