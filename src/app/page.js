@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import ClickCaptcha from '@/components/captcha/ClickCaptcha';
 import GridCaptcha from '@/components/captcha/GridCaptcha';
-import { clickCaptchaConfigs, gridCaptchaConfig } from '@/config/captchaConfig';
+import { clickCaptchaConfigs, gridCaptchaConfig, preloadAllAssets } from '@/config/captchaConfig';
 
 export default function Home() {
   const [showClickCaptcha, setShowClickCaptcha] = useState(false);
@@ -12,6 +12,7 @@ export default function Home() {
   const [gridResult, setGridResult] = useState(null);
   const [currentClickConfig, setCurrentClickConfig] = useState(null);
   const [gridCaptchaKey, setGridCaptchaKey] = useState(0);
+  const [loadProgress, setLoadProgress] = useState({ loaded: 0, total: 1 });
 
   const handleClickSuccess = useCallback(() => {
     setClickResult('success');
@@ -53,6 +54,14 @@ export default function Home() {
     setShowGridCaptcha(true);
   }, []);
 
+  // 页面加载时后台预加载所有素材
+  useEffect(() => {
+    preloadAllAssets(setLoadProgress);
+  }, []);
+
+  const isLoading = loadProgress.loaded < loadProgress.total;
+  const progressPercent = Math.round((loadProgress.loaded / loadProgress.total) * 100);
+
   return (
     <div className="min-h-screen bg-gray-100 py-12 px-4">
       <div className="max-w-4xl mx-auto">
@@ -62,11 +71,25 @@ export default function Home() {
             萝卜纸巾验证码
           </h1>
           <img
-          src="/captcha-images/kaimen.jpg"
-          alt="萝卜纸巾验证码"
-          className="h-25 mt-3 rounded m-auto"
-          draggable={false}
-        />
+            src="/captcha-images/kaimen.jpg"
+            alt="萝卜纸巾验证码"
+            className="h-25 mt-3 rounded m-auto"
+            draggable={false}
+          />
+          {/* 加载进度条 */}
+          {isLoading && (
+            <div className="mt-4 max-w-xs mx-auto relative">
+              <div className="h-5 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-[#4285f4] transition-all duration-200"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+              <span className="absolute inset-0 flex items-center justify-center text-xs font-medium text-gray-700">
+                素材预加载 {progressPercent}%
+              </span>
+            </div>
+          )}
         </div>
 
         {/* 两种验证码演示区域 */}
@@ -74,7 +97,7 @@ export default function Home() {
           {/* 点击位置验证码 */}
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              模式一
+              测试一
             </h2>
 
             {/* 状态显示 */}
@@ -104,12 +127,12 @@ export default function Home() {
                   </svg>
                 )}
               </div>
-              <span className="text-gray-700">喵？</span>
+              <span className="text-gray-700">确认您是喵喵</span>
               <div className="ml-auto flex flex-col items-center">
                 <svg className="w-8 h-8 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                 </svg>
-                <span className="text-xs text-gray-400">喵喵喵</span>
+                <span className="text-xs text-gray-400">喵</span>
               </div>
             </div>
           </div>
@@ -117,7 +140,7 @@ export default function Home() {
           {/* 九宫格验证码 */}
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              模式二
+              测试二
             </h2>
 
             {/* 状态显示 */}
@@ -147,12 +170,12 @@ export default function Home() {
                   </svg>
                 )}
               </div>
-              <span className="text-gray-700">喵喵？</span>
+              <span className="text-gray-700">确认您是喵喵</span>
               <div className="ml-auto flex flex-col items-center">
                 <svg className="w-8 h-8 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/>
                 </svg>
-                <span className="text-xs text-gray-400">喵喵喵</span>
+                <span className="text-xs text-gray-400">喵</span>
               </div>
             </div>
           </div>

@@ -118,3 +118,79 @@ export const gridCaptchaConfig = {
   ],
   promptTemplate: '{target}',
 };
+
+// 预加载所有素材
+let preloadStarted = false;
+
+export const preloadAllAssets = (onProgress) => {
+  // 避免重复预加载
+  if (preloadStarted) return;
+  preloadStarted = true;
+
+  const imageUrls = new Set();
+  const audioUrls = new Set();
+
+  // 1. 收集所有音频 URL
+  Object.values(vocalConfigs).forEach(vocals => {
+    vocals.forEach(url => audioUrls.add(url));
+  });
+
+  // 按钮点击音效
+  ['luobo', 'zhijin', 'milaoshu'].forEach(name => {
+    audioUrls.add(`/vocals/${name}-btn.wav`);
+  });
+
+  // 2. 收集点击验证码图片
+  clickCaptchaConfigs.forEach(config => {
+    const { basePath, images } = config;
+    imageUrls.add(`${basePath}/${images.default}`);
+    images.states.forEach(state => {
+      imageUrls.add(`${basePath}/${state}`);
+    });
+  });
+
+  // 标题图片
+  imageUrls.add('/captcha-images/kaimen.jpg');
+
+  // 3. 收集九宫格验证码图片
+  gridCaptchaConfig.items.forEach(item => {
+    item.variants.forEach(variant => {
+      if (variant.type === 'button') {
+        imageUrls.add(variant.images.up);
+        imageUrls.add(variant.images.down);
+      } else if (variant.type === 'image') {
+        imageUrls.add(variant.image);
+      }
+    });
+  });
+
+  const total = imageUrls.size + audioUrls.size;
+  let loadedCount = 0;
+
+  const updateProgress = () => {
+    loadedCount++;
+    if (onProgress) {
+      onProgress({ loaded: loadedCount, total });
+    }
+    if (loadedCount === total) {
+      console.log(`[Preload] 素材预加载完成: ${loadedCount}/${total}`);
+    }
+  };
+
+  // 4. 预加载图片
+  [...imageUrls].forEach(url => {
+    const img = new Image();
+    img.onload = updateProgress;
+    img.onerror = updateProgress;
+    img.src = url;
+  });
+
+  // 5. 预加载音频
+  [...audioUrls].forEach(url => {
+    const audio = new Audio();
+    audio.oncanplaythrough = updateProgress;
+    audio.onerror = updateProgress;
+    audio.src = url;
+    audio.load();
+  });
+};

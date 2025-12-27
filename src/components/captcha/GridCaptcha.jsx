@@ -281,8 +281,14 @@ export default function GridCaptcha({
                 onMouseDown={() => handleImageMouseDown(item.id, item)}
                 onMouseUp={() => handleImageMouseUp(item.id)}
                 onMouseLeave={handleImageMouseLeave}
-                onTouchStart={() => handleImageMouseDown(item.id, item)}
-                onTouchEnd={() => handleImageMouseUp(item.id)}
+                onTouchStart={(e) => {
+                  e.preventDefault();
+                  handleImageMouseDown(item.id, item);
+                }}
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  handleImageMouseUp(item.id);
+                }}
               >
                 <img
                   src={getItemImage(item, isPressed)}
